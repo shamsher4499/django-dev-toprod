@@ -2,6 +2,8 @@ from pathlib import Path
 
 import environ
 
+import dj_database_url
+
 env = environ.Env()
 
 ROOT_DIR = Path(__file__).resolve().parent.parent.parent
@@ -86,20 +88,24 @@ WSGI_APPLICATION = 'django_prod.wsgi.application'
 # DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-
-        'NAME': 'django-prod',
-
-        'USER': 'postgres',
-
-        'PASSWORD': '12345',
-
-        'HOST': 'localhost',
-
-        'PORT': 5432,
-    }
+    'default': dj_database_url.config(default='postgres://postgres:12345@127.0.0.1:5432/django-prod')
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+
+#         'NAME': 'django-prod',
+
+#         'USER': 'postgres',
+
+#         'PASSWORD': '12345',
+
+#         'HOST': 'localhost',
+
+#         'PORT': 5432,
+#     }
+# }
 
 PASSWORD_HASHERS = [
     "django.contrib.auth.hashers.Argon2PasswordHasher",
@@ -134,7 +140,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Asia/kolkata'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
